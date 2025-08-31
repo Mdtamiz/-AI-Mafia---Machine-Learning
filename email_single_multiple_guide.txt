@@ -1,0 +1,42 @@
+import smtplib
+import getpass
+from email.mime.text import MIMEText
+
+def send_email():
+    sender_address = 'mdtamiz987@gmail.com'
+    password = getpass.getpass("Enter your email password: ")
+
+    subject = 'AI Mafia - Machine Learning'
+    body = '''
+    Hello Everyone!
+    We are pleased to announce that we are going to start a new batch 
+    of AI Mafia, Hope you will join!
+
+    Thank you!
+    Mohammad Tamizunnisa
+    '''
+
+    # List of recipients
+    recipients = [
+        "bsajan960@gmail.com",
+        "mdtam987@gmail.com"
+    ]
+
+    # Draft the message
+    msg = MIMEText(body)
+    msg['Subject'] = subject
+    msg['From'] = sender_address
+    msg['To'] = ", ".join(recipients)  # Converts list to comma-separated string
+
+    # Connect to Gmail server
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(sender_address, password)
+
+    # Send email to all recipients
+    server.sendmail(sender_address, recipients, msg.as_string())
+    server.quit()
+
+    print(f"Email sent to: {', '.join(recipients)}")
+
+send_email()
